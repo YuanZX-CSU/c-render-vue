@@ -9,8 +9,8 @@ import CodeViewer from './components/CodeViewer.vue';
 import InfoView from './components/InfoView.vue';
 import StackView from './components/StackView.vue';
 
-const code_input = ref('') // 输入的代码
-const stdin_input = ref('') // 测试用例
+const code_input = ref('') // 用户输入的代码
+const stdin_input = ref('') // 用户输入的测试用例
 function send_request() { // 将输入的代码/测试用例发送给后端
   data.value = {}
   if (stdin_input.value.length == 0) {
@@ -70,7 +70,7 @@ function remove_back_slash_r() { // 去除后端返回的code中的\r
     data.value['code'] = code
   }
 }
-const success = computed(() => {
+const success = computed(() => { // 获取后端返回的运行结果
   try {
     if (data.value['trace'][0]['event'] == 'step_line') {
       return true
@@ -78,7 +78,7 @@ const success = computed(() => {
   } catch (e) { }
   return false
 })
-const exception_msg = computed(() => {
+const exception_msg = computed(() => { // 获取后端返回的异常信息
   try {
     if (data.value['trace'][0]['event'] == 'uncaught_exception') {
       return data.value['trace'][0]['exception_msg'].replace(/`/g, "'").replace(/‘/g, "'").replace(/’/g, "'")
@@ -86,7 +86,7 @@ const exception_msg = computed(() => {
   } catch (e) { }
   return ''
 })
-function get_step(_step) {
+function get_step(_step) { // 获取某一步的运行结果(1~n)
   if (_step < 1) {
     _step = 1
   }
@@ -97,27 +97,27 @@ function get_step(_step) {
     return data.value['trace'][_step - 1]
   } catch (e) { }
 }
-const current_line = computed(() => {
+const current_line = computed(() => { // 播放的当前代码对应的行数
   try {
     return get_step(current_step.value)['line']
   } catch (e) { }
 })
-const next_line = computed(() => {
+const next_line = computed(() => { // 播放的下一步代码对应的行数
   try {
     return get_step(current_step.value + 1)['line']
   } catch (e) { }
 })
-const try_failed = ref(false)
+const try_failed = ref(false) // 尝试运行代码失败
 provide('data', { data, success, exception_msg, get_step, current_line, next_line, try_failed })
 
 const total_steps = ref(1) // 总步骤数
 const current_step = ref(1) // 当前步骤
 const highlight_steps = ref([]) // 高亮的步骤
-function click_step(clicked) {
+function click_step(clicked) { // 跳转到某一步骤
   current_step.value = clicked
 }
 const highlight_lines = ref([]) // 高亮的代码行
-function enable_line(clicked) {
+function enable_line(clicked) { // 高亮某一行
   let actived = 0;
   for (let i = 1; i <= total_steps.value + 1; i++) {
     if (get_step(i)['line'] == clicked) {
@@ -129,7 +129,7 @@ function enable_line(clicked) {
     highlight_lines.value.push(clicked)
   }
 }
-function disable_line(clicked) {
+function disable_line(clicked) { // 取消高亮某一行
   for (let i = 1; i <= total_steps.value + 1; i++) {
     if (get_step(i)['line'] == clicked) {
       highlight_steps.value = highlight_steps.value.filter(item => item != i)
@@ -137,7 +137,7 @@ function disable_line(clicked) {
   }
   highlight_lines.value = highlight_lines.value.filter(item => item != clicked)
 }
-function click_line(clicked) {
+function click_line(clicked) { // 点击某一行
   if (Object.values(highlight_lines.value).includes(clicked)) {
     disable_line(clicked)
   } else {
@@ -146,10 +146,10 @@ function click_line(clicked) {
 }
 provide('step', { total_steps, current_step, highlight_steps, click_step, highlight_lines, click_line })
 
-const edit_mode = ref(true) // 编辑模式，成功运行时为false
+const edit_mode = ref(true) // 编辑模式，对应的是播放模式
 provide('edit_mode', edit_mode)
 
-const loading = ref(false)
+const loading = ref(false) // 发送请求等待后端返回的状态
 provide('loading', loading)
 
 </script>
@@ -248,8 +248,6 @@ provide('loading', loading)
   font-family: "Maple Mono SC Lite";
   src: url("./assets/MapleMono-SC-Lite.woff2")format('woff2');
 }
-
-
 
 #app {
   height: 100vh;
