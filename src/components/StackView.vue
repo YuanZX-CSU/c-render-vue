@@ -108,7 +108,7 @@ const highlight_addresses = ref({})
 watch(current_step, () => {
   highlight_addresses.value = {}
 })
-provide('stack_view',{highlight_addresses,check_changed})
+provide('stack_view',{highlight_addresses,check_changed,current_var_map})
 
 
 // function click() {

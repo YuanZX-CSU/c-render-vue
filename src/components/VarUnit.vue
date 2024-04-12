@@ -2,7 +2,7 @@
 import { computed, inject, ref, watch } from 'vue';
 
 const {  current_step } = inject('app')
-const { check_changed, highlight_addresses } = inject('stack_view')
+const { check_changed, highlight_addresses,current_var_map } = inject('stack_view')
 
 const props = defineProps(['var_name', 'var_content', 'changed'])
 const var_name = computed(() => {
@@ -55,9 +55,15 @@ const address = computed(() => {
 const display_content = computed(() => {
   if (is_data.value) {
     let v = var_content.value[3]
+    if(is_pointer.value){
+      if(v in current_var_map.value){
+        v = v + ' → ' + current_var_map.value[v]
+        return v
+      }
+    }
     return v != '<UNINITIALIZED>' ? v : '?'
   }
-  return 'todo'
+  return 'error'
 })
 const array_elements = computed(() => {
   if (is_array.value) {
