@@ -1,0 +1,22 @@
+.button {
+  background-color: white;
+  border-radius: 100rem; /* 足够大 */
+  border: 0rem;
+  padding: 0.5rem;
+  transition-duration: 200ms;
+  margin-right: 0.8rem;
+}
+
+.button:hover {
+  background-color: #c0e8ff;
+  transition-duration: 200ms;
+}
+
+.button:active {
+  background-color: #eef4fa;
+  transition-duration: 200ms;
+}
+
+button:disabled {
+  opacity: 0.5;
+}

@@ -1,0 +1,19 @@
+<script setup>
+import { inject } from 'vue';
+
+const edit_mode = inject('edit_mode')
+const { try_failed } = inject('data')
+function click() {
+  edit_mode.value = true
+  try_failed.value = false
+}
+
+</script>
+
+<template>
+  <button class="button" @click="click">编辑代码</button>
+</template>
+
+<style scoped>
+@import '@/assets/button.css';
+</style>

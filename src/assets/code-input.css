@@ -1,0 +1,25 @@
+.code-input {
+  display: block;
+  width: calc(100% - 0.8rem);
+  height: calc(100% - 0.8rem);
+  resize: none;
+  border: 0rem;
+  border-radius: 0.3rem;
+  padding: 0.4rem;
+  background-color: #ffffff;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  transition-duration: 500ms;
+  font-size: 0.8rem;
+}
+
+.code-input:hover {
+  outline: none;
+  background-color: #eef4fa;
+  transition-duration: 500ms;
+}
+
+.code-input:focus {
+  outline: none;
+}
