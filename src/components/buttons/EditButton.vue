@@ -1,8 +1,8 @@
 <script setup>
 import { inject } from 'vue';
 
-const edit_mode = inject('edit_mode')
-const { try_failed } = inject('data')
+
+const { edit_mode, try_failed } = inject('app')
 function click() {
   edit_mode.value = true
   try_failed.value = false

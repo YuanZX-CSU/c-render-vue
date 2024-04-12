@@ -1,6 +1,8 @@
 <script setup>
 import { computed, inject, ref, watch } from 'vue';
 
+const {  current_step } = inject('app')
+const { check_changed, highlight_addresses } = inject('stack_view')
 
 const props = defineProps(['var_name', 'var_content', 'changed'])
 const var_name = computed(() => {
@@ -79,9 +81,8 @@ const is_pointer = computed(() => {
   }
   return false
 })
-const { check_changed } = inject('check_changed')
 
-const { highlight_addresses, highlight_address, unhighlight_address } = inject('highlight_address')
+
 
 const pointer_color = ref(-1)
 const css_pointer_color = computed(() => {
@@ -139,7 +140,7 @@ function highlight_pointer() {
   }
 }
 
-const { current_step } = inject('step')
+
 
 watch(current_step, () => {
   pointer_color.value = -1

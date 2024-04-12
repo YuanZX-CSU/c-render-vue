@@ -6,9 +6,8 @@ import RunButton from './buttons/RunButton.vue';
 import PrevButton from './buttons/PrevButton.vue';
 import NextButton from './buttons/NextButton.vue';
 
-const { total_steps, current_step } = inject('step')
 
-const edit_mode = inject('edit_mode')
+const { total_steps, edit_mode } = inject('app')
 
 const css_grid_template_columns = computed(() => {
   return `repeat(${total_steps.value}, 1fr)`;

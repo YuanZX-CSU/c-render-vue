@@ -3,7 +3,7 @@
 import { computed, inject } from 'vue';
 import LineUnit from './LineUnit.vue';
 
-const { data } = inject('data');
+const { data } = inject('app');
 const code = computed(() => {
   return data.value['code'];
 })

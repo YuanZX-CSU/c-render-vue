@@ -3,11 +3,8 @@ import { computed, inject, ref } from 'vue';
 
 const props = defineProps(['line', 'code'])
 
-const { current_line, next_line } = inject('data')
 
-const { click_line, highlight_lines } = inject('step')
-
-const { success } = inject('data')
+const { current_line, next_line, click_line, highlight_lines } = inject('app')
 
 const line = computed(() => {
   return props.line

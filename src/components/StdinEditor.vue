@@ -2,12 +2,8 @@
 
 import { computed, inject } from 'vue';
 
-const { stdin_input } = inject('input')
+const { stdin_input, edit_mode } = inject('app')
 
-const edit_mode = inject('edit_mode')
-const readonly = computed(() => {
-  return !(edit_mode.value)
-})
 
 const placeholder = '将你的测试用例粘贴到这里\n(如果有的话)'
 

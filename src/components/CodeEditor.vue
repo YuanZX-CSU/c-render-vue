@@ -2,7 +2,7 @@
 
 import { inject } from 'vue';
 
-const { code_input } = inject('input')
+const { code_input } = inject('app')
 
 const placeholder = '将你的代码粘贴到这里'
 

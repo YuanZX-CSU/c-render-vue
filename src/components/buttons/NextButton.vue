@@ -1,7 +1,7 @@
 <script setup>
 import { inject } from 'vue';
 
-const { current_step, total_steps } = inject('step')
+const { current_step, total_steps } = inject('app')
 
 function click() {
   if (current_step.value < total_steps.value) {

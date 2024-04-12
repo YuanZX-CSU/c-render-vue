@@ -2,7 +2,7 @@
 
 import { inject } from 'vue';
 
-const { current_step } = inject('step')
+const { current_step } = inject('app')
 
 function click() {
   if (current_step.value > 1) {

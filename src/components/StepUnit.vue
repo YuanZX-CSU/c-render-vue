@@ -6,7 +6,7 @@ const this_step = computed(() => {
   return props.step
 })
 
-const { current_step, click_step, highlight_steps } = inject('step')
+const { current_step, click_step, highlight_steps } = inject('app')
 const finished = computed(() => {
   return this_step.value <= current_step.value
 })

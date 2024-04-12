@@ -2,12 +2,8 @@
 import { computed, inject } from 'vue';
 import Loading from './Loading.vue'
 
-const edit_mode = inject('edit_mode')
 
-const loading = inject('loading')
-
-const { send_request, code_input } = inject('input')
-const { try_failed } = inject('data')
+const { send_request, code_input, try_failed, loading } = inject('app')
 
 const code_not_null = computed(() => {
   return code_input.value.length > 0

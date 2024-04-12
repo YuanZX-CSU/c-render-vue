@@ -2,7 +2,7 @@
 import { inject } from 'vue';
 
 
-const { exception_msg, try_failed } = inject('data')
+const { exception_msg, try_failed } = inject('app')
 
 </script>
 

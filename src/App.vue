@@ -46,8 +46,6 @@ function send_request() { // 将输入的代码/测试用例发送给后端
       });
   }
 }
-provide('input', { code_input, stdin_input, send_request })
-
 const data = ref({}) // 后端返回的数据
 function parse_result() { // 解析后端返回的结果
   remove_back_slash_r()
@@ -108,8 +106,6 @@ const next_line = computed(() => { // 播放的下一步代码对应的行数
   } catch (e) { }
 })
 const try_failed = ref(false) // 尝试运行代码失败
-provide('data', { data, success, exception_msg, get_step, current_line, next_line, try_failed })
-
 const total_steps = ref(1) // 总步骤数
 const current_step = ref(1) // 当前步骤
 const highlight_steps = ref([]) // 高亮的步骤
@@ -144,14 +140,29 @@ function click_line(clicked) { // 点击某一行
     enable_line(clicked)
   }
 }
-provide('step', { total_steps, current_step, highlight_steps, click_step, highlight_lines, click_line })
-
 const edit_mode = ref(true) // 编辑模式，对应的是播放模式
-provide('edit_mode', edit_mode)
-
 const loading = ref(false) // 发送请求等待后端返回的状态
-provide('loading', loading)
 
+provide('app', {
+  loading,
+  code_input,
+  stdin_input,
+  send_request,
+  data,
+  success,
+  exception_msg,
+  get_step,
+  current_line,
+  next_line,
+  try_failed,
+  total_steps,
+  current_step,
+  highlight_steps,
+  click_step,
+  highlight_lines,
+  click_line,
+  edit_mode
+})
 </script>
 
 <template>

@@ -2,9 +2,8 @@
 import { computed, inject, provide, watch, ref } from 'vue';
 import VarUnit from './VarUnit.vue';
 
-const { get_step } = inject('data')
 
-const { current_step } = inject('step')
+const { get_step, current_step } = inject('app')
 
 const current_stack = computed(() => {
   return get_step(current_step.value + 1)
@@ -79,7 +78,7 @@ function check_changed(value) {
   }
   return 'x'
 }
-provide('check_changed', { check_changed })
+
 
 const has_globals = computed(() => {
   try {
@@ -109,7 +108,7 @@ const highlight_addresses = ref({})
 watch(current_step, () => {
   highlight_addresses.value = {}
 })
-provide('highlight_address', { highlight_addresses })
+provide('stack_view',{highlight_addresses,check_changed})
 
 
 function click() {
