@@ -155,6 +155,10 @@ provide('loading', loading)
 </script>
 
 <template>
+  <div class="oj-logo">
+    <img src="@/assets/ojlogo.png" style="height: 100%;">
+  </div>
+
   <div class="out-out-container">
     <div class="out-container">
       <div class="out-big-box">
@@ -193,11 +197,18 @@ provide('loading', loading)
 </template>
 
 <style scoped>
+.oj-logo {
+  height: 3rem;
+  margin: 0;
+  background-color: #186299;
+}
+
 .out-out-container {
   /* 黑魔法，勿动 */
-  height: calc(100% - 1rem);
+  height: calc(100% - 4rem);
   width: calc(100% - 1rem);
   padding: 0.5rem;
+  margin: 0;
 }
 
 .out-container {
