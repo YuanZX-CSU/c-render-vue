@@ -111,15 +111,15 @@ watch(current_step, () => {
 provide('stack_view',{highlight_addresses,check_changed})
 
 
-function click() {
-  // console.log(Object.keys(current_stack.value['globals']).length)
-  // console.log(current_var_map.value)
-  // for(let [key,value] of current_stack.value.globals){
-  //     console.log(value)
-  //   }
-  // console.log(has_stdout.value)
-  console.log(highlight_addresses.value)
-}
+// function click() {
+//   // console.log(Object.keys(current_stack.value['globals']).length)
+//   // console.log(current_var_map.value)
+//   // for(let [key,value] of current_stack.value.globals){
+//   //     console.log(value)
+//   //   }
+//   // console.log(has_stdout.value)
+//   console.log(highlight_addresses.value)
+// }
 
 
 </script>
@@ -151,7 +151,7 @@ function click() {
         :changed="check_changed(value2)" />
     </div>
   </div>
-  <button @click="click">log</button>
+  <!-- <button @click="click">log</button> -->
   <!-- <div>{{ stack_to_render }}</div> -->
 
 </template>
@@ -178,5 +178,6 @@ function click() {
   width: calc(100% + 0.5rem);
   gap: 1rem;
   overflow: auto;
+  border-radius: 0.3rem;
 }
 </style>
