@@ -81,6 +81,7 @@ function parse_result() { // 解析后端返回的结果
     total_steps.value = 1
   }
   current_step.value = 1
+  highlight_lines.value = []
   highlight_steps.value = []
 }
 function remove_back_slash_r() { // 去除后端返回的code中的\r
