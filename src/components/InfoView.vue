@@ -12,7 +12,7 @@ const { exception_msg, try_failed } = inject('app')
   </div>
   <div class="info-view" v-show="try_failed">
     <p class="big-face">🤔</p>
-    <p>你的代码好像有问题？</p><br>
+    <p>好像出了点问题？</p><br>
     <p>{{ exception_msg }}</p>
   </div>
 </template>
@@ -25,6 +25,6 @@ const { exception_msg, try_failed } = inject('app')
 }
 
 .big-face {
-  font-size: 8rem;
+  font-size: 7rem;
 }
 </style>

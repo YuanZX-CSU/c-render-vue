@@ -14,7 +14,7 @@ const stdin_input = ref('') // 用户输入的测试用例
 function send_request() { // 将输入的代码/测试用例发送给后端
   data.value = {}
   let code = code_input.value
-  code = code.replace(/ /g,' ')
+  code = code.replace(/ /g, ' ')
   if (stdin_input.value.length == 0) {
     axios.post(base_url + '/visualize', {
       code: code
@@ -28,7 +28,17 @@ function send_request() { // 将输入的代码/测试用例发送给后端
         parse_result()
       })
       .catch(error => {
+        data.value = {
+          "trace": [
+            {
+              "event": "uncaught_exception",
+              "exception_msg": "network error",
+              "line": 1
+            }
+          ]
+        }
         console.error(error);
+        parse_result()
       });
   } else {
     axios.post(base_url + '/visualize', {
@@ -44,7 +54,17 @@ function send_request() { // 将输入的代码/测试用例发送给后端
         parse_result()
       })
       .catch(error => {
+        data.value = {
+          "trace": [
+            {
+              "event": "uncaught_exception",
+              "exception_msg": "network error",
+              "line": 1
+            }
+          ]
+        }
         console.error(error);
+        parse_result()
       });
   }
 }
