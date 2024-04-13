@@ -13,9 +13,11 @@ const code_input = ref('') // 用户输入的代码
 const stdin_input = ref('') // 用户输入的测试用例
 function send_request() { // 将输入的代码/测试用例发送给后端
   data.value = {}
+  let code = code_input.value
+  code = code.replace(/ /g,' ')
   if (stdin_input.value.length == 0) {
     axios.post(base_url + '/visualize', {
-      code: code_input.value
+      code: code
     }, {
       headers: {
         'Content-Type': 'multipart/form-data'
@@ -30,7 +32,7 @@ function send_request() { // 将输入的代码/测试用例发送给后端
       });
   } else {
     axios.post(base_url + '/visualize', {
-      code: code_input.value,
+      code: code,
       stdin: stdin_input.value
     }, {
       headers: {
