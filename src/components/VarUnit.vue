@@ -61,7 +61,7 @@ const display_content = computed(() => {
         return v
       }
     }
-    return v != '<UNINITIALIZED>' ? v : '?'
+    return v != '<UNINITIALIZED>' && v != '<UNALLOCATED>' ? v : '?'
   }
   return 'error'
 })
