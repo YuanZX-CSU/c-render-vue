@@ -2,7 +2,6 @@
 import { computed, inject } from 'vue';
 import Loading from './Loading.vue'
 
-
 const { send_request, code_input, try_failed, loading } = inject('app')
 
 const code_not_null = computed(() => {

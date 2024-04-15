@@ -2,15 +2,13 @@
 import { computed, inject, provide, watch, ref } from 'vue';
 import VarUnit from './VarUnit.vue';
 
-
 const { get_step, current_step } = inject('app')
 
-const current_stack = computed(() => {
+const current_stack = computed(() => { // 当前要显示的帧（主要显示stack部分）
   return get_step(current_step.value + 1)
 })
-
-const current_var_map = computed(() => {
-  let map = {}
+const current_var_map = computed(() => { // 当前帧的 地址-值 map
+  let map = {} // 错误示范，这是个对象，不是map
   function parse_array(array) {
     if (array[0] == 'C_DATA') {
       map[array[1]] = array[3]
@@ -34,12 +32,10 @@ const current_var_map = computed(() => {
   } catch (e) { }
   return map
 })
-
-const prev_stack = computed(() => {
+const prev_stack = computed(() => { // 上一帧
   return get_step(current_step.value)
 })
-
-const prev_var_map = computed(() => {
+const prev_var_map = computed(() => { // 上一帧的 地址-值 map
   let map = {}
   function parse_array(array) {
     if (array[0] == 'C_DATA') {
@@ -64,8 +60,7 @@ const prev_var_map = computed(() => {
   } catch (e) { }
   return map
 })
-
-function check_changed(value) {
+function check_changed(value) { // 检查某个地址的值是否发生了变化
   let address = value[1]
   if (address in current_var_map.value) {
     if (address in prev_var_map.value) {
@@ -78,49 +73,33 @@ function check_changed(value) {
   }
   return 'x'
 }
-
-
-const has_globals = computed(() => {
+const has_globals = computed(() => { // 当前帧是否含有全局变量
   try {
     return Object.keys(current_stack.value['globals']).length > 0
   } catch (e) { }
   return false
 })
-
-const stack_to_render = computed(() => {
+const stack_to_render = computed(() => { // 当前帧的stack
   try {
     return current_stack.value['stack_to_render']
   } catch (e) { }
 })
-
-const stdout = computed(() => {
+const stdout = computed(() => { // 从开始到当前帧的累计输出
   try {
     return current_stack.value['stdout']
   } catch (e) { }
   return ''
 })
-
-const has_stdout = computed(() => {
+const has_stdout = computed(() => { // 当前帧是否有输出
   return stdout.value.length > 0
 })
+const highlight_addresses = ref({}) // 高亮的地址及其颜色代号
 
-const highlight_addresses = ref({})
 watch(current_step, () => {
   highlight_addresses.value = {}
 })
+
 provide('stack_view',{highlight_addresses,check_changed,current_var_map})
-
-
-// function click() {
-//   // console.log(Object.keys(current_stack.value['globals']).length)
-//   // console.log(current_var_map.value)
-//   // for(let [key,value] of current_stack.value.globals){
-//   //     console.log(value)
-//   //   }
-//   // console.log(has_stdout.value)
-//   console.log(highlight_addresses.value)
-// }
-
 
 </script>
 

@@ -4,7 +4,6 @@ import { computed, inject } from 'vue';
 
 const { stdin_input, edit_mode } = inject('app')
 
-
 const placeholder = '将你的测试用例粘贴到这里\n(如果有的话)'
 
 </script>

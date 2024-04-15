@@ -1,19 +1,17 @@
 <script setup>
-import { computed, inject, ref } from 'vue';
+import { computed, inject } from 'vue';
 
 const props = defineProps(['line', 'code'])
 
-
 const { current_line, next_line, click_line, highlight_lines } = inject('app')
 
-const line = computed(() => {
+const line = computed(() => { // 行号
   return props.line
 })
-const code = computed(() => {
+const code = computed(() => { // 该行的代码
   return props.code
 })
-
-const mark = computed(() => {
+const mark = computed(() => { // 代码左侧的标记
   if (line.value == current_line.value) {
     return '→'
   }
@@ -22,23 +20,19 @@ const mark = computed(() => {
   }
   return ' '
 })
-
-const is_current = computed(() => {
+const is_current = computed(() => { // 是当前行
   return line.value == current_line.value
 })
-
-const is_next = computed(() => {
+const is_next = computed(() => { // 是下一行
   return line.value == next_line.value
 })
-
-const css_code_background = computed(() => {
+const css_code_background = computed(() => { // 对应的style
   if (Object.values(highlight_lines.value).includes(line.value)) {
     return '#FFDAD6'
   } else {
     return 'white'
   }
 })
-
 function click() {
   click_line(line.value)
 }

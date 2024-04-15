@@ -14,13 +14,14 @@ const var_content = computed(() => {
 const changed = computed(() => {
   return props.changed
 })
-const is_changed = computed(() => {
+
+const is_changed = computed(() => { // 相对于上一帧，发生了变化
   return changed.value == 'changed'
 })
-const is_new = computed(() => {
+const is_new = computed(() => { // 相对于上一帧，是新增的
   return changed.value == 'new'
 })
-const display_name = computed(() => {
+const display_name = computed(() => { // 最终显示的变量名称
   if (is_element.value) {
     return var_name.value.substring(1)
   }
@@ -37,22 +38,22 @@ const display_name = computed(() => {
     return '$' + var_name.value.substring(0, spaceIndex)
   }
 })
-const is_data = computed(() => {
+const is_data = computed(() => { // 是普通数据
   return var_content.value[0] == 'C_DATA'
 })
-const is_array = computed(() => {
+const is_array = computed(() => { // 是数组
   return var_content.value[0] == 'C_ARRAY'
 })
-const is_struct = computed(() => {
+const is_struct = computed(() => { // 是结构体
   return var_content.value[0] == 'C_STRUCT'
 })
-const is_element = computed(() => {
+const is_element = computed(() => { // 是数组里的元素
   return var_name.value.charAt(0) == '^'
 })
-const address = computed(() => {
+const address = computed(() => { // 该变量的地址
   return var_content.value[1]
 })
-const display_content = computed(() => {
+const display_content = computed(() => { // 最终显示的变量的值
   if (is_data.value) {
     let v = var_content.value[3]
     if(is_pointer.value){
@@ -65,21 +66,21 @@ const display_content = computed(() => {
   }
   return 'error'
 })
-const array_elements = computed(() => {
+const array_elements = computed(() => { // 如果是数组，获取数组的子元素
   if (is_array.value) {
     let array = var_content.value
     array.slice(2)
     return array
   }
 })
-const struct_elements = computed(() => {
+const struct_elements = computed(() => { // 如果是结构体，获取结构体的子元素
   if (is_struct.value) {
     let struct = var_content.value
     struct.slice(3)
     return struct
   }
 })
-const is_pointer = computed(() => {
+const is_pointer = computed(() => { // 判断该变量类型是否为指针
   if (is_data.value) {
     if (var_content.value[2] == 'pointer') {
       return true
@@ -87,11 +88,8 @@ const is_pointer = computed(() => {
   }
   return false
 })
-
-
-
-const pointer_color = ref(-1)
-const css_pointer_color = computed(() => {
+const pointer_color = ref(-1) // 用数字储存对应的style
+const css_pointer_color = computed(() => { // 获取对应的style
   if (pointer_color.value < 0) {
     return 'none'
   } else {
@@ -110,8 +108,7 @@ const css_pointer_color = computed(() => {
     }
   }
 })
-
-const css_var_color = computed(() => {
+const css_var_color = computed(() => { // 获取对应的style
   if (address.value in highlight_addresses.value) {
     let c = highlight_addresses.value[address.value]
     c = c % 4
@@ -130,8 +127,7 @@ const css_var_color = computed(() => {
   }
   return 'none'
 })
-
-function highlight_pointer() {
+function highlight_pointer() { // 点击某个地址，使其和对应元素改变style
   if (is_data.value) {
     if (var_content.value[2] == 'pointer') {
       let pa = var_content.value[3]
@@ -146,8 +142,6 @@ function highlight_pointer() {
   }
 }
 
-
-
 watch(current_step, () => {
   pointer_color.value = -1
 })
@@ -155,7 +149,6 @@ watch(current_step, () => {
 </script>
 
 <template>
-  <!-- <br> -->
   <div v-if="is_data" class="big-box" :class="{ 'element-box': is_element }">
     <div class="small-box var-name">{{ display_name }}<span v-if="!is_element"> = </span><span v-else>: </span><span
         :class="{ changed: is_changed, new: is_new, pointer: is_pointer }" @click="highlight_pointer">{{ display_content
@@ -179,20 +172,13 @@ watch(current_step, () => {
 
 <style>
 .big-box {
-  /* margin: 0rem; */
-  /* border-radius: 0.3rem; */
-  /* background-color: green; */
   padding: 0.2rem;
-  /* width: auto; */
-  /* display: inline-block; */
 }
 
 .small-box {
   border-radius: 0.2rem;
   background-color: #EEF4FA;
   padding: 0.2rem;
-  /* width: auto; */
-  /* display: inline-block; */
 }
 
 .head-box {
