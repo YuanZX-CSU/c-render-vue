@@ -150,9 +150,13 @@ watch(current_step, () => {
 
 <template>
   <div v-if="is_data" class="big-box" :class="{ 'element-box': is_element }">
-    <div class="small-box var-name">{{ display_name }}<span v-if="!is_element"> = </span><span v-else>: </span><span
-        :class="{ changed: is_changed, new: is_new, pointer: is_pointer }" @click="highlight_pointer">{{ display_content
-        }}</span></div>
+    <div class="small-box var-name">
+      <span v-if="!is_element">{{ display_name }} = </span>
+      <div v-else class="element-index">{{ display_name }}<br></div>
+      <span :class="{ changed: is_changed, new: is_new, pointer: is_pointer }" @click="highlight_pointer">
+        {{ display_content}}
+      </span>
+    </div>
   </div>
   <div v-if="is_array" class="big-box">
     <div class="array-box">
@@ -227,5 +231,10 @@ watch(current_step, () => {
 
 .var-name {
   text-decoration: v-bind(css_var_color);
+}
+
+.element-index{
+  font-size: 0.4rem;
+
 }
 </style>
