@@ -1,21 +1,28 @@
 <script setup>
 
 import { inject } from 'vue';
+import { Codemirror } from 'vue-codemirror';
+import { cpp } from '@codemirror/lang-cpp';
+import { EditorView } from '@codemirror/view';
 
 const { code_input } = inject('app')
 
-const placeholder = '将你的代码粘贴到这里'
+let custom_theme = EditorView.theme({
+  "&": {
+    "font-size": "0.8rem"
+  },
+  "&.cm-focused": {
+    outline: "none"
+  },
+  ".cm-gutters": {
+    backgroundColor: "#EEF4FA"
+  }
+}, { dark: false })
 
 </script>
 
 <template>
-  <textarea class="code-input" v-model="code_input" :placeholder="placeholder"></textarea>
+  <Codemirror v-model="code_input" style="height: 100%;" :extensions="[cpp(), custom_theme]" />
 </template>
 
-<style scoped>
-@import '@/assets/code-input.css';
-
-.code-input {
-  white-space: nowrap;
-}
-</style>
+<style scoped></style>

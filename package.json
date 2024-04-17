@@ -9,8 +9,11 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@codemirror/lang-cpp": "^6.0.2",
+    "@codemirror/view": "^6.26.3",
     "axios": "^1.6.8",
-    "vue": "^3.4.21"
+    "vue": "^3.4.21",
+    "vue-codemirror": "^6.1.1"
   },
   "devDependencies": {
     "@vitejs/plugin-vue": "^5.0.4",
