@@ -11,7 +11,9 @@
   "dependencies": {
     "@codemirror/lang-cpp": "^6.0.2",
     "@codemirror/view": "^6.26.3",
+    "@types/crypto-js": "^4.2.2",
     "axios": "^1.6.8",
+    "crypto-js": "^4.2.0",
     "vue": "^3.4.21",
     "vue-codemirror": "^6.1.1"
   },

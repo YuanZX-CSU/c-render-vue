@@ -9,6 +9,7 @@ import ControlPanel from './components/ControlPanel.vue';
 import CodeViewer from './components/CodeViewer.vue';
 import InfoView from './components/InfoView.vue';
 import StackView from './components/StackView.vue';
+import CryptoJS from 'crypto-js';
 
 const code_input = ref('') // 用户输入的代码
 const stdin_input = ref('') // 用户输入的测试用例
@@ -166,6 +167,61 @@ function click_line(clicked) { // 点击某一行
 }
 const edit_mode = ref(true) // 编辑模式，对应的是播放模式
 const loading = ref(false) // 发送请求等待后端返回的状态
+
+function getMD5(string){ // not provide
+  return CryptoJS.MD5(string).toString(CryptoJS.enc.Hex)
+}
+function generate_random_string(length = 32) { // not provide
+  const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let result = '';
+  for (let i = 0; i < length; i++) {
+    result += characters.charAt(Math.floor(Math.random() * characters.length));
+  }
+  return result;
+}
+function query_oj_solution(solution_id){
+  const key = 'cd57c770-5384-493e-e231-51e74438287a'
+  const nonce = generate_random_string()
+  const appID = 'ProgrammingLearningJudgingPlatform'
+  const timestamp = Math.floor(Date.now() / 1000)
+  const join = 'solutionID=' + solution_id + '&key=' + key + '&nonce=' + nonce + '&appID=' + appID + '&timestamp=' + timestamp
+  const signature = getMD5(join)
+  axios.get(oj_base_url,{
+    params: {
+      solutionID: solution_id
+    },
+    headers: {
+      'pljp-appID': appID,
+      'pljp-timestamp': timestamp,
+      'pljp-nonce': nonce,
+      'pljp-signature': signature
+    }
+  })
+  .then(response => {
+    const resp = response.data
+    if(resp.code == 10000){
+      code_input.value = resp.data.code
+      stdin_input.value = resp.data.input
+      loading.value = true
+      try_failed.value = false
+      send_request()
+    }else{
+      console.log(resp)
+    }
+  })
+  .catch(error => {
+    console.error(error);
+  });
+}
+function get_oj_solution_id(){
+  const currentUrl = window.location.href;
+  const queryObject = new URLSearchParams(window.location.search);
+  const solution_id = queryObject.get('solution');
+  if(solution_id != null){
+    query_oj_solution(solution_id)
+  }
+}
+get_oj_solution_id()
 
 provide('app', {
   loading,
