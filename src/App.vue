@@ -1,7 +1,8 @@
 <script setup>
 import { computed, provide, ref } from 'vue';
 import axios from 'axios'
-import { base_url } from '@/main'
+import { base_url } from '@/url.js'
+import { oj_base_url } from '@/url.js'
 import CodeEditor from './components/CodeEditor.vue';
 import StdinEditor from './components/StdinEditor.vue';
 import ControlPanel from './components/ControlPanel.vue';
