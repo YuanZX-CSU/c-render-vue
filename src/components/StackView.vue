@@ -2,7 +2,7 @@
 import { computed, inject, provide, watch, ref } from 'vue';
 import VarUnit from './VarUnit.vue';
 
-const { get_step, current_step } = inject('app')
+const { get_step, current_step, feature_show_new_vars } = inject('app')
 
 const current_stack = computed(() => { // 当前要显示的帧（主要显示stack部分）
   return get_step(current_step.value + 1)
@@ -68,7 +68,9 @@ function check_changed(value) { // 检查某个地址的值是否发生了变化
         return 'changed'
       }
     } else {
-      return 'new'
+      if(feature_show_new_vars.value){
+        return 'new'
+      }
     }
   }
   return 'x'

@@ -5,12 +5,16 @@ import EditButton from './buttons/EditButton.vue';
 import RunButton from './buttons/RunButton.vue';
 import PrevButton from './buttons/PrevButton.vue';
 import NextButton from './buttons/NextButton.vue';
+import CommandButton from './buttons/CommandButton.vue';
 
 
-const { total_steps, edit_mode } = inject('app')
+const { total_steps, edit_mode, stdin_input } = inject('app')
 
 const css_grid_template_columns = computed(() => {
   return `repeat(${total_steps.value}, 1fr)`;
+})
+const command_available = computed(()=>{
+  return stdin_input.value.startsWith("/set ")
 })
 
 
@@ -25,6 +29,7 @@ const css_grid_template_columns = computed(() => {
     <RunButton v-show="edit_mode" />
     <PrevButton v-show="!edit_mode" />
     <NextButton v-show="!edit_mode" />
+    <CommandButton v-show="command_available" />
   </div>
 </template>
 

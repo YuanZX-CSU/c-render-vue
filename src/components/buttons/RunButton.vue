@@ -26,7 +26,7 @@ function click() {
 @import '@/assets/button.css';
 
 .button {
-  display: flex;
+  display: inline-flex;
   align-items: center;
   /* 垂直居中 */
 }

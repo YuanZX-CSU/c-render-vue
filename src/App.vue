@@ -223,6 +223,8 @@ function get_oj_solution_id(){
 }
 get_oj_solution_id()
 
+const feature_show_new_vars = ref(false)
+
 provide('app', {
   loading,
   code_input,
@@ -241,7 +243,8 @@ provide('app', {
   click_step,
   highlight_lines,
   click_line,
-  edit_mode
+  edit_mode,
+  feature_show_new_vars
 })
 </script>
 
