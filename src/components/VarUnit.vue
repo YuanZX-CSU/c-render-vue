@@ -23,7 +23,27 @@ const is_new = computed(() => { // 相对于上一帧，是新增的
 })
 const display_name = computed(() => { // 最终显示的变量名称
   if (is_element.value) {
-    return var_name.value.substring(1)
+    let index = var_name.value.substring(1)
+    const caretIndex = index.indexOf('^');
+    if(caretIndex == -1){
+      return index
+    }else{
+      const [partBeforeCaret, partAfterCaret] = index.split('^', 2);
+      function getIndexInMultiDimArray(part1, part2Str) {
+        const dimensions = part2Str.split(',').map(Number);
+        const totalElements = dimensions.reduce((product, dim) => product * dim, 1);
+        if (part1 < 0 || part1 >= totalElements) {
+          return 'error'
+        }
+        const indices = [];
+        for (let dim of dimensions.slice().reverse()) {
+          indices.unshift(part1 % dim);
+          part1 = Math.floor(part1 / dim);
+        }
+        return indices.join(',');
+      }
+      return getIndexInMultiDimArray(Number(partBeforeCaret),partAfterCaret)
+    }
   }
   const spaceIndex = var_name.value.indexOf(' '); // 认为仅有'var (static xxx)'的额外情况
   if (spaceIndex == -1) {
@@ -46,6 +66,9 @@ const is_array = computed(() => { // 是数组
 })
 const is_struct = computed(() => { // 是结构体
   return var_content.value[0] == 'C_STRUCT'
+})
+const is_multi_array = computed(()=>{
+  return var_content.value[0] == 'C_MULTIDIMENSIONAL_ARRAY'
 })
 const is_element = computed(() => { // 是数组里的元素
   return var_name.value.charAt(0) == '^'
@@ -70,6 +93,19 @@ const array_elements = computed(() => { // 如果是数组，获取数组的子�
   if (is_array.value) {
     let array = var_content.value
     array.slice(2)
+    return array
+  }
+})
+const multi_array_head = computed(() => { // 如果是数组，获取数组的子元素
+  if (is_multi_array.value) {
+    let array = var_content.value
+    return array[2]
+  }
+})
+const multi_array_elements = computed(() => { // 如果是数组，获取数组的子元素
+  if (is_multi_array.value) {
+    let array = var_content.value
+    array.slice(3)
     return array
   }
 })
@@ -170,6 +206,13 @@ watch(current_step, () => {
       <div class="struct-box-header">{{ display_name }}</div>
       <VarUnit v-for="item in struct_elements" :var_name="item[0]" :var_content="item[1]"
         :changed="check_changed(item[1])" />
+    </div>
+  </div>
+  <div v-if="is_multi_array" class="big-box">
+    <div class="array-box">
+      <div class="array-box-header">{{ display_name }}</div>
+      <VarUnit v-for="(item, index) in multi_array_elements" :var_name="'^' + (index - 3) + '^' + multi_array_head" :var_content="item"
+        :changed="check_changed(item)" />
     </div>
   </div>
 </template>
