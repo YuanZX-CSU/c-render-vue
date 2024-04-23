@@ -224,6 +224,7 @@ function get_oj_solution_id(){
 get_oj_solution_id()
 
 const feature_show_new_vars = ref(false)
+const feature_breakpoint_style = ref(false)
 
 provide('app', {
   loading,
@@ -244,7 +245,8 @@ provide('app', {
   highlight_lines,
   click_line,
   edit_mode,
-  feature_show_new_vars
+  feature_show_new_vars,
+  feature_breakpoint_style
 })
 </script>
 

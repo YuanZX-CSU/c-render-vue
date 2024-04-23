@@ -3,7 +3,7 @@ import { computed, inject } from 'vue';
 
 const props = defineProps(['line', 'code'])
 
-const { current_line, next_line, click_line, highlight_lines } = inject('app')
+const { current_line, next_line, click_line, highlight_lines, feature_breakpoint_style } = inject('app')
 
 const line = computed(() => { // 行号
   return props.line
@@ -27,10 +27,21 @@ const is_next = computed(() => { // 是下一行
   return line.value == next_line.value
 })
 const css_code_background = computed(() => { // 对应的style
+  if(feature_breakpoint_style.value){
+    return 'white'
+  }
   if (Object.values(highlight_lines.value).includes(line.value)) {
     return '#FFDAD6'
   } else {
     return 'white'
+  }
+})
+const breakpoint = computed(() => {
+  // 
+  if (Object.values(highlight_lines.value).includes(line.value)) {
+    return ''
+  } else {
+    return ' '
   }
 })
 function click() {
@@ -42,6 +53,7 @@ function click() {
 <template>
   <div>
     <pre :class="{ blue: is_current, 'light-blue': is_next }">{{ mark }} </pre>
+    <pre class="breakpoint" v-show="feature_breakpoint_style">{{ breakpoint }} </pre>
     <pre :class="{ blue: is_current }" class="code" @click="click">{{ code }}</pre>
   </div>
 </template>
@@ -75,5 +87,9 @@ pre {
 .code:active {
   filter: brightness(0.8);
   transition-duration: 200ms;
+}
+
+.breakpoint{
+  color: red;
 }
 </style>
