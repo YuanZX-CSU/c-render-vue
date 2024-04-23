@@ -14,7 +14,6 @@ const command = computed(()=>{
 
 function click(){
   const cmd = command.value
-  console.log(cmd)
   if(cmd == '?'){
     stdin_input.value = 'available commands:\n/show_new_vars'
   }
