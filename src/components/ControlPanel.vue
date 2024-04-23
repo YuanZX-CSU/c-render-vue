@@ -14,7 +14,7 @@ const css_grid_template_columns = computed(() => {
   return `repeat(${total_steps.value}, 1fr)`;
 })
 const command_available = computed(()=>{
-  return stdin_input.value.startsWith("/set ")
+  return stdin_input.value.startsWith("/")
 })
 
 
