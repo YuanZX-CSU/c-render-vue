@@ -75,7 +75,7 @@ function parse_result() { // 解析后端返回的结果
   remove_back_slash_r()
   loading.value = false
   if (success.value) {
-    total_steps.value = data.value['trace'].length - 1
+    total_steps.value = data.value['trace'].length
     try_failed.value = false
     edit_mode.value = false
   } else {
@@ -113,8 +113,8 @@ function get_step(_step) { // 获取某一步的运行结果(1~n)
   if (_step < 1) {
     _step = 1
   }
-  if (_step > total_steps.value + 1) {
-    _step = total_steps.value + 1
+  if (_step > total_steps.value) {
+    _step = total_steps.value
   }
   try {
     return data.value['trace'][_step - 1]
@@ -140,7 +140,7 @@ function click_step(clicked) { // 跳转到某一步骤
 const highlight_lines = ref([]) // 高亮的代码行
 function enable_line(clicked) { // 高亮某一行
   let actived = 0;
-  for (let i = 1; i <= total_steps.value + 1; i++) {
+  for (let i = 1; i <= total_steps.value; i++) {
     if (get_step(i)['line'] == clicked) {
       highlight_steps.value.push(i)
       actived += 1
@@ -151,7 +151,7 @@ function enable_line(clicked) { // 高亮某一行
   }
 }
 function disable_line(clicked) { // 取消高亮某一行
-  for (let i = 1; i <= total_steps.value + 1; i++) {
+  for (let i = 1; i <= total_steps.value; i++) {
     if (get_step(i)['line'] == clicked) {
       highlight_steps.value = highlight_steps.value.filter(item => item != i)
     }

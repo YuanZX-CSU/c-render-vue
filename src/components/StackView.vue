@@ -5,7 +5,7 @@ import VarUnit from './VarUnit.vue';
 const { get_step, current_step, feature_show_new_vars } = inject('app')
 
 const current_stack = computed(() => { // 当前要显示的帧（主要显示stack部分）
-  return get_step(current_step.value + 1)
+  return get_step(current_step.value)
 })
 const current_var_map = computed(() => { // 当前帧的 地址-值 map
   let map = {} // 错误示范，这是个对象，不是map

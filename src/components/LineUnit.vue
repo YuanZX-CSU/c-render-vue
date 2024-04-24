@@ -3,10 +3,22 @@ import { computed, inject } from 'vue';
 
 const props = defineProps(['line', 'code'])
 
-const { current_line, next_line, click_line, highlight_lines } = inject('app')
+const { current_line, click_line, highlight_lines, total_steps } = inject('app')
 
 const line = computed(() => { // 行号
   return props.line
+})
+const line_string = computed(()=>{
+  const zero_count = String(total_steps.value).length - String(line.value).length
+  if(zero_count <= 0){
+    return line.value
+  }else{
+    let padding = '';
+    for (let i = 0; i < zero_count; i++) {
+        padding += '0';
+    }
+    return padding + String(line.value)
+  }
 })
 const code = computed(() => { // 该行的代码
   return props.code
@@ -15,22 +27,16 @@ const mark = computed(() => { // 代码左侧的标记
   if (line.value == current_line.value) {
     return '→'
   }
-  if (line.value == next_line.value) {
-    return '→'
-  }
   return ' '
 })
 const is_current = computed(() => { // 是当前行
   return line.value == current_line.value
 })
-const is_next = computed(() => { // 是下一行
-  return line.value == next_line.value
-})
-const css_code_background = computed(() => { // 对应的style
+const breakpoint = computed(()=>{
   if (Object.values(highlight_lines.value).includes(line.value)) {
-    return '#FFDAD6'
+    return ''
   } else {
-    return 'white'
+    return ' '
   }
 })
 function click() {
@@ -40,9 +46,11 @@ function click() {
 </script>
 
 <template>
-  <div>
-    <pre :class="{ blue: is_current, 'light-blue': is_next }">{{ mark }} </pre>
-    <pre :class="{ blue: is_current }" class="code" @click="click">{{ code }}</pre>
+  <div class="code" @click="click">
+    <pre :class="{ blue: is_current }">{{ mark }} </pre>
+    <pre class="breakpoint">{{ breakpoint }} </pre>
+    <pre>{{ line_string }} </pre>
+    <pre :class="{ blue: is_current }">{{ code }}</pre>
   </div>
 </template>
 
@@ -55,19 +63,15 @@ pre {
   color: #00aeff;
 }
 
-.light-blue {
-  color: #c0e8ff;
-}
-
 .code {
   border: 0rem;
   border-radius: 0.3rem;
-  background-color: v-bind(css_code_background);
+  background-color: white;
   transition-duration: 200ms;
+  width: fit-content;
 }
 
 .code:hover {
-  /* background-color: #FFB4AB; */
   filter: brightness(0.9);
   transition-duration: 200ms;
 }
@@ -75,5 +79,9 @@ pre {
 .code:active {
   filter: brightness(0.8);
   transition-duration: 200ms;
+}
+
+.breakpoint{
+  color: red;
 }
 </style>
