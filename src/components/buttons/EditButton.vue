@@ -11,7 +11,7 @@ function click() {
 </script>
 
 <template>
-  <button class="button" @click="click">编辑代码</button>
+  <button class="button" @click="click">修改代码</button>
 </template>
 
 <style scoped>

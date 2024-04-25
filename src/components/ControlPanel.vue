@@ -6,7 +6,8 @@ import RunButton from './buttons/RunButton.vue';
 import PrevButton from './buttons/PrevButton.vue';
 import NextButton from './buttons/NextButton.vue';
 import CommandButton from './buttons/CommandButton.vue';
-
+import NextBreakpoint from './buttons/NextBreakpoint.vue';
+import PrevBreakpoint from './buttons/PrevBreakpoint.vue';
 
 const { total_steps, edit_mode, stdin_input } = inject('app')
 
@@ -29,7 +30,9 @@ const command_available = computed(()=>{
     <RunButton v-show="edit_mode" />
     <PrevButton v-show="!edit_mode" />
     <NextButton v-show="!edit_mode" />
-    <CommandButton v-show="command_available" />
+    <CommandButton v-show="command_available && edit_mode" />
+    <NextBreakpoint v-show="!edit_mode" />
+    <PrevBreakpoint v-show="!edit_mode" />
   </div>
 </template>
 
