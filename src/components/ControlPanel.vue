@@ -32,8 +32,8 @@ const command_available = computed(()=>{
     <NextButton v-show="!edit_mode" />
     <CommandButton v-show="command_available && edit_mode" />
     <br v-show="!edit_mode">
-    <NextBreakpoint v-show="!edit_mode" />
     <PrevBreakpoint v-show="!edit_mode" />
+    <NextBreakpoint v-show="!edit_mode" />
   </div>
 </template>
 
