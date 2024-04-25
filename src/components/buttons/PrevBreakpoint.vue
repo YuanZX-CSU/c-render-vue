@@ -1,7 +1,11 @@
 <script setup>
-import { inject } from 'vue';
+import { computed, inject } from 'vue';
 
 const { current_step, highlight_steps } = inject('app')
+
+const clickable = computed(()=>{
+  return highlight_steps.value.length == 0
+})
 
 function click() {
   let target
@@ -23,7 +27,7 @@ function click() {
 </script>
 
 <template>
-  <button class="button" @click="click">上个断点</button>
+  <button class="button" @click="click" :disabled="clickable">上个断点</button>
 </template>
 
 <style scoped>

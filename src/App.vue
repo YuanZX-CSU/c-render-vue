@@ -311,7 +311,7 @@ provide('app', {
   /* 黑魔法，勿动 */
   display: grid;
   grid-template-columns: 34% 66%;
-  grid-template-rows: 80% 20%;
+  grid-template-rows: 74% 26%;
   height: 100%;
   width: 100%;
 }
