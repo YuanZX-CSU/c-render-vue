@@ -82,6 +82,6 @@ pre {
 }
 
 .breakpoint{
-  color: red;
+  color: #ff2700;
 }
 </style>

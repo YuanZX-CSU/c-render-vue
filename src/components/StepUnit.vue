@@ -14,9 +14,9 @@ const finished = computed(() => { // 已完成
 const css_background_color = computed(() => { // 获取对应style
   if (Object.values(highlight_steps.value).includes(this_step.value)) {
     if (finished.value) {
-      return '#ffb4ab' // 已完成 高亮
+      return '#ff2700' // 已完成 高亮
     } else {
-      return '#ffdad6' // 未完成 高亮
+      return '#ff937f' // 未完成 高亮
     }
   } else {
     if (finished.value) {
