@@ -167,11 +167,11 @@ function click_line(clicked) { // 点击某一行
 }
 const edit_mode = ref(true) // 编辑模式，对应的是播放模式
 const loading = ref(false) // 发送请求等待后端返回的状态
-
-function getMD5(string){ // not provide
+const solution_output = ref('')
+function getMD5(string){ // 获取字符串的md5
   return CryptoJS.MD5(string).toString(CryptoJS.enc.Hex)
 }
-function generate_random_string(length = 32) { // not provide
+function generate_random_string(length = 32) { // 生成32位随机字符串
   const characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
   let result = '';
   for (let i = 0; i < length; i++) {
@@ -179,7 +179,7 @@ function generate_random_string(length = 32) { // not provide
   }
   return result;
 }
-function query_oj_solution(solution_id){
+function query_oj_solution(solution_id){ // 查询solution信息
   const key = 'cd57c770-5384-493e-e231-51e74438287a'
   const nonce = generate_random_string()
   const appID = 'ProgrammingLearningJudgingPlatform'
@@ -202,6 +202,7 @@ function query_oj_solution(solution_id){
     if(resp.code == 10000){
       code_input.value = resp.data.code
       stdin_input.value = resp.data.input
+      solution_output.value = resp.data.output
       loading.value = true
       try_failed.value = false
       send_request()
@@ -213,7 +214,7 @@ function query_oj_solution(solution_id){
     console.error(error);
   });
 }
-function get_oj_solution_id(){
+function get_oj_solution_id(){ // 从网址获取solutionID
   const currentUrl = window.location.href;
   const queryObject = new URLSearchParams(window.location.search);
   const solution_id = queryObject.get('solution');
@@ -244,7 +245,8 @@ provide('app', {
   highlight_lines,
   click_line,
   edit_mode,
-  feature_show_new_vars
+  feature_show_new_vars,
+  solution_output
 })
 </script>
 
@@ -275,13 +277,13 @@ provide('app', {
 
       <div class="out-big-box">
         <div class="big-box">
-          <StdinEditor />
+          <ControlPanel />
         </div>
       </div>
 
       <div class="out-big-box">
         <div class="big-box">
-          <ControlPanel />
+          <StdinEditor />
         </div>
       </div>
 

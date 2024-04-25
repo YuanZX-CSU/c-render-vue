@@ -86,15 +86,6 @@ const stack_to_render = computed(() => { // 当前帧的stack
     return current_stack.value['stack_to_render']
   } catch (e) { }
 })
-const stdout = computed(() => { // 从开始到当前帧的累计输出
-  try {
-    return current_stack.value['stdout']
-  } catch (e) { }
-  return ''
-})
-const has_stdout = computed(() => { // 当前帧是否有输出
-  return stdout.value.length > 0
-})
 const highlight_addresses = ref({}) // 高亮的地址及其颜色代号
 
 watch(current_step, () => {
@@ -107,16 +98,6 @@ provide('stack_view',{highlight_addresses,check_changed,current_var_map})
 
 <template>
   <div class="flex-container">
-    <div class="func-box" v-show="has_stdout">
-      <div class="big-box">
-        <div class="small-box head-box">输出</div>
-      </div>
-      <div class="big-box">
-        <div class="small-box">
-          <pre>{{ stdout }}</pre>
-        </div>
-      </div>
-    </div>
     <div class="func-box" v-if="has_globals">
       <div class="big-box">
         <div class="small-box head-box">全局变量</div>
@@ -132,9 +113,6 @@ provide('stack_view',{highlight_addresses,check_changed,current_var_map})
         :changed="check_changed(value2)" />
     </div>
   </div>
-  <!-- <button @click="click">log</button> -->
-  <!-- <div>{{ stack_to_render }}</div> -->
-
 </template>
 
 <style scoped>
@@ -144,17 +122,11 @@ provide('stack_view',{highlight_addresses,check_changed,current_var_map})
   border-radius: 0.5rem;
   padding: 0.2rem;
   margin-right: 0.5rem;
-  /* width: min-content;
-  height: min-content; */
 }
 
 .flex-container {
   display: flex;
   flex-direction: column;
-  /* grid-auto-flow: column;
-  grid-template-columns: auto;
-  grid-template-rows: auto; */
-  /* grid-template-columns: repeat(auto-fit, minmax(100px, 1fr)); */
   height: 100%;
   width: calc(100% + 0.5rem);
   gap: 1rem;
