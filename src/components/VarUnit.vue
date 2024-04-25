@@ -180,6 +180,7 @@ function highlight_pointer() { // 点击某个地址，使其和对应元素改�
 function unhighlight_pointer() { // 点击某个地址，使其和对应元素改变style
   if (is_data.value) {
     if (var_content.value[2] == 'pointer') {
+      highlight_addresses.value[var_content.value[3]] = -1
       pointer_color.value = -1
     }
   }
