@@ -177,6 +177,13 @@ function highlight_pointer() { // 点击某个地址，使其和对应元素改�
     }
   }
 }
+function unhighlight_pointer() { // 点击某个地址，使其和对应元素改变style
+  if (is_data.value) {
+    if (var_content.value[2] == 'pointer') {
+      pointer_color.value = -1
+    }
+  }
+}
 
 watch(current_step, () => {
   pointer_color.value = -1
@@ -189,7 +196,7 @@ watch(current_step, () => {
     <div class="small-box var-name">
       <span v-if="!is_element">{{ display_name }} = </span>
       <div v-else class="element-index">{{ display_name }}<br></div>
-      <span :class="{ changed: is_changed, new: is_new, pointer: is_pointer }" @click="highlight_pointer">
+      <span :class="{ changed: is_changed, new: is_new, pointer: is_pointer }" @click="highlight_pointer" @contextmenu.prevent="unhighlight_pointer">
         {{ display_content}}
       </span>
     </div>
