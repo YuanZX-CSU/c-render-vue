@@ -53,6 +53,9 @@ const display_name = computed(() => { // 最终显示的变量名称
     if (is_struct.value) {
       return '#' + var_name.value + '(' + var_content.value[2] + ')'
     }
+    if(is_pointer.value){
+      return '*' + var_name.value
+    }
     return var_name.value
   } else {
     return '$' + var_name.value.substring(0, spaceIndex)
