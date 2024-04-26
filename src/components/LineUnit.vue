@@ -36,6 +36,9 @@ const is_current = computed(() => { // 是当前行
   return line.value == current_line.value
 })
 const is_prev = computed(()=>{
+  if(is_current.value){
+    return false
+  }
   return line.value == prev_line.value
 })
 const breakpoint = computed(()=>{
