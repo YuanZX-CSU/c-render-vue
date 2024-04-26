@@ -33,7 +33,7 @@ const current_var_map = computed(() => { // 当前帧的 地址-值 map
   return map
 })
 const prev_stack = computed(() => { // 上一帧
-  return get_step(current_step.value)
+  return get_step(current_step.value - 1)
 })
 const prev_var_map = computed(() => { // 上一帧的 地址-值 map
   let map = {}
