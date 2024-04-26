@@ -125,9 +125,9 @@ const current_line = computed(() => { // 播放的当前代码对应的行数
     return get_step(current_step.value)['line']
   } catch (e) { }
 })
-const next_line = computed(() => { // 播放的下一步代码对应的行数
+const prev_line = computed(() => { // 播放的下一步代码对应的行数
   try {
-    return get_step(current_step.value + 1)['line']
+    return get_step(current_step.value - 1)['line']
   } catch (e) { }
 })
 const try_failed = ref(false) // 尝试运行代码失败
@@ -236,7 +236,7 @@ provide('app', {
   exception_msg,
   get_step,
   current_line,
-  next_line,
+  prev_line,
   try_failed,
   total_steps,
   current_step,

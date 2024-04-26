@@ -3,7 +3,7 @@ import { computed, inject } from 'vue';
 
 const props = defineProps(['line', 'code'])
 
-const { current_line, click_line, highlight_lines, total_steps } = inject('app')
+const { current_line, click_line, highlight_lines, total_steps, prev_line } = inject('app')
 
 const line = computed(() => { // 行号
   return props.line
@@ -27,10 +27,16 @@ const mark = computed(() => { // 代码左侧的标记
   if (line.value == current_line.value) {
     return '→'
   }
+  if (line.value == prev_line.value) {
+    return '↗'
+  }
   return ' '
 })
 const is_current = computed(() => { // 是当前行
   return line.value == current_line.value
+})
+const is_prev = computed(()=>{
+  return line.value == prev_line.value
 })
 const breakpoint = computed(()=>{
   if (Object.values(highlight_lines.value).includes(line.value)) {
@@ -47,7 +53,7 @@ function click() {
 
 <template>
   <div class="code" @click="click">
-    <pre :class="{ blue: is_current }">{{ mark }} </pre>
+    <pre :class="{ blue: is_current, 'light-blue': is_prev }">{{ mark }} </pre>
     <pre class="breakpoint">{{ breakpoint }} </pre>
     <pre>{{ line_string }} </pre>
     <pre :class="{ blue: is_current }">{{ code }}</pre>
@@ -61,6 +67,10 @@ pre {
 
 .blue {
   color: #00aeff;
+}
+
+.light-blue {
+  color: #c0e8ff;
 }
 
 .code {
