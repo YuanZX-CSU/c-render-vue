@@ -1,9 +1,9 @@
 <script setup>
-import { computed, inject } from 'vue';
+import { computed, inject, watch, getCurrentInstance } from 'vue';
 
 const props = defineProps(['line', 'code'])
 
-const { current_line, click_line, highlight_lines, total_steps, prev_line } = inject('app')
+const { current_line, click_line, highlight_lines, total_steps, prev_line, current_step } = inject('app')
 
 const line = computed(() => { // 行号
   return props.line
@@ -52,11 +52,23 @@ function click() {
   click_line(line.value)
 }
 
+watch(current_step, () => {
+  if(is_current.value){
+    current_instance.proxy.$el.scrollIntoView({
+      behavior: 'smooth',
+      inline: 'start',
+      block: 'center'
+    });
+  }
+})
+
+const current_instance = getCurrentInstance()
+
 </script>
 
 <template>
   <div class="code" @click="click">
-    <pre :class="{ blue: is_current, 'light-blue': is_prev }">{{ mark }} </pre>
+    <pre :class="{ blue: is_current, 'light-blue': is_prev }"> {{ mark }} </pre>
     <pre class="breakpoint">{{ breakpoint }} </pre>
     <pre>{{ line_string }} </pre>
     <pre :class="{ blue: is_current }">{{ code }}</pre>

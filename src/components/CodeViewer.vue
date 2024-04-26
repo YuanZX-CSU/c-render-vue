@@ -30,6 +30,6 @@ const code_split = computed(() => {
   height: calc(100% - 0.8rem);
   border: 0rem;
   border-radius: 0.3rem;
-  padding: 0.4rem;
+  /* padding: 0.4rem; */
 }
 </style>

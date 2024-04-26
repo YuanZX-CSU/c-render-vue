@@ -1,5 +1,5 @@
 <script setup>
-import { computed, provide, ref } from 'vue';
+import { computed, provide, ref, nextTick } from 'vue';
 import axios from 'axios'
 import { base_url } from '@/url.js'
 import { oj_base_url } from '@/url.js'
@@ -82,9 +82,12 @@ function parse_result() { // 解析后端返回的结果
     try_failed.value = true
     total_steps.value = 1
   }
-  current_step.value = 1
+  current_step.value = 0
   highlight_lines.value = []
   highlight_steps.value = []
+  nextTick(()=>{
+    current_step.value = 1
+  })
 }
 function remove_back_slash_r() { // 去除后端返回的code中的\r
   if ('code' in data.value) {
@@ -125,7 +128,7 @@ const current_line = computed(() => { // 播放的当前代码对应的行数
     return get_step(current_step.value)['line']
   } catch (e) { }
 })
-const prev_line = computed(() => { // 播放的下一步代码对应的行数
+const prev_line = computed(() => { // 播放的上一步代码对应的行数
   try {
     return get_step(current_step.value - 1)['line']
   } catch (e) { }
