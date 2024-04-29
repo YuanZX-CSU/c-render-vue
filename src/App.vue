@@ -110,7 +110,10 @@ const exception_msg = computed(() => { // 获取后端返回的异常信息
       return data.value['trace'][0]['exception_msg'].replace(/`/g, "'").replace(/‘/g, "'").replace(/’/g, "'")
     }
   } catch (e) { }
-  return ''
+  try {
+    return data.value['error']
+  } catch (e) { }
+  return 'unknown error'
 })
 function get_step(_step) { // 获取某一步的运行结果(1~n)
   if (_step < 1) {
