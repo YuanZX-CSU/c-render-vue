@@ -26,10 +26,9 @@ const code_split = computed(() => {
   font-size: 0.8rem;
   background-color: white;
   overflow: auto;
-  width: calc(100% - 0.8rem);
-  height: calc(100% - 0.8rem);
+  width: 100%;
+  height: 100%;
   border: 0rem;
   border-radius: 0.3rem;
-  /* padding: 0.4rem; */
 }
 </style>
