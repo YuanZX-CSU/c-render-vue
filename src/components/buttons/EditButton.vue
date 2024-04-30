@@ -2,10 +2,11 @@
 import { inject } from 'vue';
 
 
-const { edit_mode, try_failed } = inject('app')
+const { edit_mode, try_failed, data } = inject('app')
 function click() {
   edit_mode.value = true
   try_failed.value = false
+  data.value = {}
 }
 
 </script>
