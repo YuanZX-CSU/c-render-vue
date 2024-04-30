@@ -2,18 +2,12 @@
 
 import { inject } from 'vue';
 
-const { current_step } = inject('app')
-
-function click() {
-  if (current_step.value > 1) {
-    current_step.value -= 1
-  }
-}
+const { current_step, click_prev } = inject('app')
 
 </script>
 
 <template>
-  <button class="button" @click="click">上一步</button>
+  <button class="button" @click="click_prev">上一步</button>
 </template>
 
 <style scoped>

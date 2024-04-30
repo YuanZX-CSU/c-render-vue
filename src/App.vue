@@ -1,5 +1,5 @@
 <script setup>
-import { computed, provide, ref, nextTick } from 'vue';
+import { computed, provide, ref, nextTick, onMounted } from 'vue';
 import axios from 'axios'
 import { base_url } from '@/url.js'
 import { oj_base_url } from '@/url.js'
@@ -240,6 +240,31 @@ function get_oj_solution_id(){ // 从网址获取solutionID
 }
 get_oj_solution_id()
 
+function click_next() {
+  if (current_step.value < total_steps.value) {
+    current_step.value += 1
+  }
+}
+function click_prev() {
+  if (current_step.value > 1) {
+    current_step.value -= 1
+  }
+}
+
+onMounted(()=>{
+  const handleKeyDown = (event) => {
+    if(!edit_mode.value){
+      if (event.key === 'ArrowRight') {
+        click_next()
+      }
+      if (event.key === 'ArrowLeft') {
+        click_prev()
+      }
+    }
+  }
+  window.addEventListener('keydown', handleKeyDown)
+})
+
 const feature_show_new_vars = ref(false)
 
 provide('app', {
@@ -263,7 +288,9 @@ provide('app', {
   click_line,
   edit_mode,
   feature_show_new_vars,
-  solution_output
+  solution_output,
+  click_next,
+  click_prev
 })
 </script>
 

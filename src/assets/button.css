@@ -18,6 +18,10 @@
   transition-duration: 200ms;
 }
 
-button:disabled {
+.button:focus {
+  outline: none;
+}
+
+.button:disabled {
   opacity: 0.5;
 }

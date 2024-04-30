@@ -1,18 +1,12 @@
 <script setup>
 import { inject } from 'vue';
 
-const { current_step, total_steps } = inject('app')
-
-function click() {
-  if (current_step.value < total_steps.value) {
-    current_step.value += 1
-  }
-}
+const { current_step, total_steps, click_next } = inject('app')
 
 </script>
 
 <template>
-  <button class="button" @click="click">下一步</button>
+  <button class="button" @click="click_next">下一步</button>
 </template>
 
 <style scoped>
