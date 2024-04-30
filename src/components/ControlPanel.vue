@@ -8,6 +8,7 @@ import NextButton from './buttons/NextButton.vue';
 import CommandButton from './buttons/CommandButton.vue';
 import NextBreakpoint from './buttons/NextBreakpoint.vue';
 import PrevBreakpoint from './buttons/PrevBreakpoint.vue';
+import WarningButton from './buttons/WarningButton.vue';
 
 const { total_steps, edit_mode, stdin_input } = inject('app')
 
@@ -16,6 +17,9 @@ const css_grid_template_columns = computed(() => {
 })
 const command_available = computed(()=>{
   return stdin_input.value.startsWith("/")
+})
+const too_many_steps = computed(()=>{
+  return total_steps.value >= 1000
 })
 
 
@@ -34,6 +38,7 @@ const command_available = computed(()=>{
     <br v-show="!edit_mode">
     <PrevBreakpoint v-show="!edit_mode" />
     <NextBreakpoint v-show="!edit_mode" />
+    <WarningButton v-show="!edit_mode && too_many_steps" />
   </div>
 </template>
 
