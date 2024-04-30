@@ -71,6 +71,16 @@ function send_request() { // 将输入的代码/测试用例发送给后端
   }
 }
 const data = ref({}) // 后端返回的数据
+const code_view = computed(() => {
+  try{
+    return data.value['code']
+  }
+  catch (e){}
+  return ''
+})
+const code_view_split = computed(() => {
+  return String(code_view.value).split('\n');
+})
 function parse_result() { // 解析后端返回的结果
   remove_back_slash_r()
   loading.value = false
@@ -238,6 +248,7 @@ provide('app', {
   stdin_input,
   send_request,
   data,
+  code_view_split,
   success,
   exception_msg,
   get_step,

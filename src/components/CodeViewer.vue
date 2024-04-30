@@ -1,23 +1,15 @@
 <script setup>
 
-import { computed, inject } from 'vue';
+import { inject } from 'vue';
 import LineUnit from './LineUnit.vue';
 
-const { data } = inject('app');
-const code = computed(() => {
-  return data.value['code'];
-})
-const code_split = computed(() => {
-  return String(code.value).split('\n');
-})
-
-
-
+const { code_view_split } = inject('app');
+ 
 </script>
 
 <template>
   <div class="container">
-    <LineUnit v-for="(item, index) in code_split" :code="item" :line="index + 1" />
+    <LineUnit v-for="(item, index) in code_view_split" :code="item" :line="index + 1" />
   </div>
 </template>
 

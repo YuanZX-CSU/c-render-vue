@@ -3,13 +3,13 @@ import { computed, inject, watch, getCurrentInstance } from 'vue';
 
 const props = defineProps(['line', 'code'])
 
-const { current_line, click_line, highlight_lines, total_steps, prev_line, current_step } = inject('app')
+const { current_line, click_line, highlight_lines, code_view_split, prev_line, current_step } = inject('app')
 
 const line = computed(() => { // 行号
   return props.line
 })
 const line_string = computed(()=>{
-  const zero_count = String(total_steps.value).length - String(line.value).length
+  const zero_count = String(code_view_split.value.length).length - String(line.value).length
   if(zero_count <= 0){
     return line.value
   }else{
