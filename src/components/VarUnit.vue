@@ -1,5 +1,5 @@
 <script setup>
-import { computed, inject, ref, watch } from 'vue';
+import { computed, inject, ref, watch, getCurrentInstance, nextTick } from 'vue';
 
 const {  current_step } = inject('app')
 const { check_changed, highlight_addresses,current_var_map } = inject('stack_view')
@@ -192,6 +192,20 @@ function unhighlight_pointer() { // 点击某个地址，使其和对应元素�
 watch(current_step, () => {
   pointer_color.value = -1
 })
+
+watch(changed,(new_value)=>{
+  if(new_value == 'changed' || new_value == 'new'){
+    console.log('1')
+    nextTick(()=>{
+      current_instance.proxy.$el.nextElementSibling.scrollIntoView({
+        behavior: 'smooth',
+        block: 'center'
+      });
+    })
+  }
+})
+
+const current_instance = getCurrentInstance()
 
 </script>
 
