@@ -195,7 +195,6 @@ watch(current_step, () => {
 
 watch(changed,(new_value)=>{
   if(new_value == 'changed' || new_value == 'new'){
-    console.log('1')
     nextTick(()=>{
       current_instance.proxy.$el.nextElementSibling.scrollIntoView({
         behavior: 'smooth',
