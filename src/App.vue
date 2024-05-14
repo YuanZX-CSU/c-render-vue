@@ -265,7 +265,7 @@ onMounted(()=>{
   window.addEventListener('keydown', handleKeyDown)
 })
 
-const feature_show_new_vars = ref(false)
+const feature_show_new_vars = ref(true)
 
 provide('app', {
   loading,
