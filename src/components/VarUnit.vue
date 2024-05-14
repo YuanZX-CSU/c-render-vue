@@ -196,7 +196,7 @@ watch(current_step, () => {
 </script>
 
 <template>
-  <div v-if="is_data" class="big-box" :class="{ 'element-box': is_element }">
+  <div v-if="is_data" class="big-box inline-block" :class="{ 'element-box': is_element }">
     <div class="small-box var-name">
       <span v-if="!is_element">{{ display_name }} = </span>
       <div v-else class="element-index">{{ display_name }}<br></div>
@@ -290,5 +290,9 @@ watch(current_step, () => {
 .element-index{
   font-size: 0.4rem;
 
+}
+
+.inline-block{
+  display: inline-block;
 }
 </style>
