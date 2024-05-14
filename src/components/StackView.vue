@@ -107,7 +107,7 @@ provide('stack_view',{highlight_addresses,check_changed,current_var_map})
     </div>
     <div class="func-box" v-for="value1 in stack_to_render">
       <div class="big-box">
-        <div class="small-box head-box">{{ value1['func_name'] }}</div>
+        <div class="small-box head-box">函数: {{ value1['func_name'] }}(~)</div>
       </div>
       <VarUnit v-for="(value2, key2, index2) in value1['encoded_locals']" :var_name="key2" :var_content="value2"
         :changed="check_changed(value2)" />
