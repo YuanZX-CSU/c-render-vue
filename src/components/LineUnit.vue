@@ -78,6 +78,7 @@ const current_instance = getCurrentInstance()
 <style scoped>
 pre {
   display: inline;
+  tab-size: 4;
 }
 
 .blue {
