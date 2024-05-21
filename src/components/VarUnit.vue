@@ -47,7 +47,7 @@ const display_name = computed(() => { // 最终显示的变量名称
   }
   const spaceIndex = var_name.value.indexOf(' '); // 认为仅有'var (static xxx)'的额外情况
   if (spaceIndex == -1) {
-    if (is_array.value) {
+    if (is_array.value || is_multi_array.value) {
       return '@' + var_name.value
     }
     if (is_struct.value) {
