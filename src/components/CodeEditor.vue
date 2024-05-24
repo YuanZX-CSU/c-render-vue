@@ -22,7 +22,7 @@ let custom_theme = EditorView.theme({
 </script>
 
 <template>
-  <Codemirror v-model="code_input" placeholder="在此处输入你的代码" style="height: 100%;" :extensions="[cpp(), custom_theme]" tab-size="4"/>
+  <Codemirror v-model="code_input" placeholder="在此处输入你的代码" style="height: 100%;" :extensions="[cpp(), custom_theme]" :tab-size="4"/>
 </template>
 
 <style scoped></style>
