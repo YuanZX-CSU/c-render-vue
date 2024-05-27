@@ -21,5 +21,5 @@ npm run build
 
 构建后网页文件在 dist 目录下，请自行配置网页代理
 
-请修改 main.js 中的 base_url 为后端地址
+请修改 src/url.js 中对应的后端地址
 
