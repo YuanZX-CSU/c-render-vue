@@ -2,7 +2,7 @@
 
 ## 前置
 
-在调试或构建本项目之前，请先部署后端项目
+在调试或构建本项目之前，请先部署后端项目 [c-backend-docker](https://github.com/YuanZX-CSU/c-backend-docker)
 
 请修改 src/url.js 中对应的后端地址
 
